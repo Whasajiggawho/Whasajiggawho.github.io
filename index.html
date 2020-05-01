@@ -3,17 +3,86 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Whoosajiggawha</title>
-		<script defer src="src/index.js" charset="utf-8"></script>
+		    <script type="text/javascript">
+				"use strict"
+				function calculate () {
+					var trivial = document.getElementById("trivial").value;
+					var skill = document.getElementById("skill").value;
+					var temp = document.getElementById("aas").selectedIndex;
+					var aa
+					switch(temp) {
+						case 0:
+							aa = 0
+							break;
+						case 1:
+							aa = 10;
+							break;
+						case 2:
+							aa = 25;
+							break;
+						case 3:
+							aa = 50;
+							break;
+						case 4:
+							aa = 75
+					} 
+					var success
+					var fail
+					
+					if(trivial < 68) {
+						success = skill - trivial + 66;
+					} else {
+						success = (skill-(trivial * 0.75)) + 51.5;
+					}
+					
+					if(skill > 0) {
+						fail = 100-success;
+						fail = aa*fail/100;
+						success += fail;
+					}
+					
+					if (success < 5) success = 5;
+					if (success > 95) success = 95;
+					
+					if (skill > trivial) {
+						if ((skill-trivial) >= 200) {
+							success = 100;
+						} else if ((skill-trivial) >= 160) {
+							success = 100 - ((100-success)*(0.20));
+						} else if ((skill-trivial) >= 120) {
+							success = 100 - ((100-success)*(0.40));
+						} else if ((skill-trivial) >= 80) {
+							success = 100 - ((100-success)*(0.60));
+						} else if ((skill-trivial) >= 40) {
+							success = 100 - ((100-success)*(0.80));
+						}
+					}
+					
+					alert('Success chance: ' + success);
+				}
+			</script>
 	</head>	
 	<body>
-		<div id="quote">
-			<!-- quote here -->
-		</div>
-		<br>
-		<button id="give-cat">Cat</button>
-		<div id="cat">
-			<!-- cat here -->
-		</div>
+		<form name="myDocument" id="myForm">
+			<label class="inlinelabel" for='trivial'>Trivial: </label>
+			<input type="text" name="trivial" id="trivial" value=""/>
+			<p>
+			<label class="inlinelabel" for='skill'>Skill: </label>
+			<input type="text" name="skill" id="skill" value=""/>
+			<p>
+			<label class="inlinelabel" for='aas'>AAs: </label>
+			<select id="aas">
+			  <option value="aa0">0</option>
+			  <option value="aa1">1</option>
+			  <option value="aa2">2</option>
+			  <option value="aa3">3</option>
+			  <option value="aa4">4 (Poisoncrafting only)</option>
+			</select>
+			<p>
+			<input type="button" name="buttons" value="Calculate" onclick="calculate()"/>
+			<p>
+			
+		</form>
 	</body>
 </html>
 
